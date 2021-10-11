@@ -1,5 +1,10 @@
 package model;
 
+import java.util.ArrayList;
+
+import static model.State.*;
+
+
 /* Class: Cell
  * The basic unit of the Game of Life. Cells contain a state
  * of either DEAD or ALIVE. They also store their own position
@@ -13,7 +18,7 @@ public class Cell {
      * EFFECT: Default constructor. Instantiates a dead cell.
      */
     public Cell() {
-        this.state = State.DEAD;
+        this.state = DEAD;
     }
 
     /*
@@ -23,17 +28,22 @@ public class Cell {
         this.state = state;
     }
 
-    /*
+    /* REQUIRES: surroundingCells.length > 0.
      * EFFECT: Reads the state of the surrounding cells and generates
      *         a score based on the sum of the states of each cell. States
      *         have a value of either 0 (DEAD) or 1 (ALIVE), and so the
      *         maximum score is 8 (all surrounding cells are alive) or
      *         0 (all surrounding cells are dead). This sum is passed to
      *         updateState(), which decides whether or not the cell should
-     *         die or stay alive.
+     *         die or stay alive. Returns the score.
      */
-    public void interact(Cell[] surroundingCells) {
-
+    public int interact(ArrayList<Cell> surroundingCells) {
+        int score = 0;
+        for (Cell cell : surroundingCells) {
+            score += cell.state.value;
+        }
+        updateState(score);
+        return score;
     }
 
     /* MODIFIES: this.state
@@ -43,21 +53,20 @@ public class Cell {
      *         ALIVE: die if count > 3 or count < 2
      *         DEAD: alive if count == 3;
      */
-    public void updateState(int score) {
-
+    private void updateState(int score) {
+        switch (this.state) {
+            case DEAD:
+                this.state = (score == 3) ? ALIVE : DEAD;
+                break;
+            case ALIVE:
+                this.state = (score < 2 || score > 3) ? DEAD : ALIVE;
+                break;
+        }
     }
 
-    /* EFFECT: Returns a string representation of the current state. A value of
-     *          -1 signals that something is wrong.
-     */
+    /* EFFECT: Returns a string representation of the current state. */
     public String toString() {
-        if (state == State.DEAD) {
-            return "0";
-        } else if (state == State.ALIVE) {
-            return "1";
-        } else {
-            return "-1";
-        }
+        return this.state.toString();
     }
 
     /* EFFECTS: Equality check for cells. Returns true if o has the same state or if it's

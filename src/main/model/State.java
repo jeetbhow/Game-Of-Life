@@ -6,6 +6,16 @@ package model;
  */
 
 public enum State {
-    DEAD,
-    ALIVE
+    DEAD(0),
+    ALIVE(1);
+    public final int value;
+
+    State(int value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        String s = "";
+        return s += value;
+    }
 }
