@@ -9,9 +9,15 @@ package model;
 public class Cell {
     private State state;
 
+    /*
+     * EFFECT: Default constructor. Instantiates a dead cell.
+     */
+    public Cell() {
+        this.state = State.DEAD;
+    }
 
     /*
-     * EFFECT: Initializes a Cell.
+     * EFFECT: Alternate constructor. Instantiates a cell with the given state.
      */
     public Cell(State state) {
         this.state = state;
@@ -41,4 +47,35 @@ public class Cell {
 
     }
 
+    /* EFFECT: Returns a string representation of the current state. A value of
+     *          -1 signals that something is wrong.
+     */
+    public String toString() {
+        if (state == State.DEAD) {
+            return "0";
+        } else if (state == State.ALIVE) {
+            return "1";
+        } else {
+            return "-1";
+        }
+    }
+
+    /* EFFECTS: Equality check for cells. Returns true if o has the same state or if it's
+     *          the same object. Returns false if o isn't a cell, or if it doesn't have
+     *          the same state.
+     */
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Cell)) {
+            return false;
+        } else {
+            Cell cell = (Cell) o;
+            return this.state == cell.state;
+        }
+    }
+
+    public State getState() {
+        return state;
+    }
 }
