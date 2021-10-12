@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static model.State.DEAD;
+import java.util.ArrayList;
+
+import static model.State.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -37,9 +39,8 @@ public class BoardTest {
     @Test
     @DisplayName("Constructor tests")
     void constructor() {
-        assertEquals(3, testBoard.columns);
-        assertEquals(3, testBoard.rows);
-        assertEquals(DEAD, testBoard.getCells().get(0).get(0).getState());
+        assertEquals(3, testBoard.width);
+        assertEquals(3, testBoard.height);
     }
 
     @Test
@@ -75,9 +76,5 @@ public class BoardTest {
         testBoard.addRow();
         testBoard.flipCell(3,3);
         assertEquals(FOUR_SQUARE_ALIVE, testBoard.toString());
-
-        testBoard.stringToArray(CENTER_ALIVE, 3, 3);
-        System.out.println(testBoard);
     }
-
 }
