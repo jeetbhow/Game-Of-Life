@@ -2,51 +2,45 @@ package model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-/*
-    The Board class contains an n x n array of cells.
- */
+/* A board consists of a 2D array of cells. You can set the dimensions
+ * of the board, and add and remove cells from it. You can also change
+ * the state of a cell. */
+
 public class Board {
-    private int size;
-    private Cell[][] cells;
+    int columns;
+    int rows;
+    private LinkedList<LinkedList<Cell>> cells;
 
-    public Board(int size) {
-        cells = new Cell[size][size];
-        this.size = size;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                cells[i][j] = new Cell();
-            }
-        }
+    /* EFFECTS: Instantiates a board. */
+    public Board(int columns, int rows) {
+
     }
 
-    /* EFFECTS: Returns a string representation of the board. As
-     *          an example, if you have a 2x2 board of dead cells, then
-     *          it will return
-     *
-     *           | . | . |
-     *           | . | . |
-     */
+    /* MODIFIES: this
+     * EFFECTS: Increments columns by one. */
+    public void addColumn() {
+
+    }
+
+    /* MODIFIES: this
+     * EFFECTS: Increments rows by one. */
+    public void addRow() {
+
+    }
+
+
+    /* REQUIRES: i and j must be non-negative.
+     * MODIFIES: Cell.state.
+     * EFFECTS: Flips the state of a cell on the board. A dead cell will flip to
+     * alive, and an alive one will flip to dead. */
+    public void flipCell(int i, int j) {
+
+    }
+
+    /* EFFECTS: Returns a string representation of the board. */
     public String toString() {
-        StringBuilder string = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            string.append("| ");
-            for (int j = 0; j < size; j++) {
-                string.append(cells[i][j]);
-                if (j != size - 1) {
-                    string.append(" | ");
-                }
-            }
-            string.append(" |");
-            if (i != size - 1) {
-                string.append("\n");
-            }
-        }
-        return string.toString();
-    }
-
-    // GETTERS
-    public int getSize() {
-        return size;
+        return "";
     }
 }

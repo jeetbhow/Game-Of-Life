@@ -13,9 +13,4 @@ public enum State {
     State(int value) {
         this.value = value;
     }
-
-    public String toString() {
-        String s = "";
-        return s += value;
-    }
 }

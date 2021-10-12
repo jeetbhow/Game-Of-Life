@@ -103,30 +103,25 @@ public class CellTest {
         // Our test cell.
         Cell testCell = new Cell(ALIVE);
         assertEquals(testCell, aliveCell);
-        System.out.println(testCell);
 
         // Expecting a score of 0 and for it to die.
         int score = testCell.interact(deadCells);
         assertEquals(0, score);
         assertEquals(testCell, deadCell);
-        System.out.println(testCell);
 
         // Expecting a score of 8 and for it to remain dead.
         score = testCell.interact(aliveCells);
         assertEquals(8, score);
         assertEquals(testCell, deadCell);
-        System.out.println(testCell);
 
         // Expecting a score of 3 and for it to revive.
         score = testCell.interact(threeLiveCells);
         assertEquals(3, score);
         assertEquals(testCell, aliveCell);
-        System.out.println(testCell);
 
         // Expecting a score of 4 and for it to die.
         score = testCell.interact(fourLiveCells);
         assertEquals(4, score);
         assertEquals(testCell, deadCell);
-        System.out.println(testCell);
     }
 }
