@@ -1,14 +1,11 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static model.State.*;
 
-/* A Board consists of a 2D array of cells. You can set the dimensions
- * of the board, and add and remove cells from it. You can also change
- * the state of a cell. */
+/* A Board consists of a 2D array of cells.  */
 
 public class Board {
     private int height;
@@ -31,7 +28,7 @@ public class Board {
         this.width = original.getWidth();
         this.cells = new ArrayList<>();
         for (int i = 0; i < this.height; i++) {
-            this.cells.add(new ArrayList<Cell>());
+            this.cells.add(new ArrayList<>());
             for (int j = 0; j < this.width; j++) {
                 this.cells.get(i).add(new Cell(original.getCell(i,j)));
             }
@@ -102,6 +99,21 @@ public class Board {
      * EFFECTS: Returns a list of all cells around a point. */
     public ArrayList<Cell> scan(int row, int column) {
         ArrayList<Cell> cells = new ArrayList<>();
+        cells = checkVerticalAndCorners(row, column, cells);
+        if (column > 0) {
+            cells.add(this.getCell(row, column - 1));
+        }
+        if (column < width - 1) {
+            cells.add(this.getCell(row, column + 1));
+        }
+        return cells;
+    }
+
+    /* REQUIRES: row and column are non-negative. Cells is non-empty.
+       MODIFIES: Cells
+       EFFECTS: Checks the top and bottom cells as well as the corners.
+     */
+    private ArrayList<Cell> checkVerticalAndCorners(int row, int column, ArrayList<Cell> cells) {
         if (row > 0) {
             cells.add(this.getCell(row - 1, column));
             if (column > 0) {
@@ -111,9 +123,6 @@ public class Board {
                 cells.add(this.getCell(row - 1, column + 1));
             }
         }
-        if (column > 0) {
-            cells.add(this.getCell(row, column - 1));
-        }
         if (row < height - 1) {
             cells.add(this.getCell(row + 1, column));
             if (column > 0) {
@@ -122,9 +131,6 @@ public class Board {
             if (column < width - 1) {
                 cells.add(this.getCell(row + 1, column + 1));
             }
-        }
-        if (column < width - 1) {
-            cells.add(this.getCell(row, column + 1));
         }
         return cells;
     }
@@ -168,8 +174,8 @@ public class Board {
     }
 
     /* MODIFIES: This
-     * REQUIRES: String must contain a grid of "." and "*" characters separated by " | ", like what's
-     * returned by toString(). Height and width are non-negative and correspond to this grid.
+     * REQUIRES: String contains a grid of "." and "*" characters separated by " | ", like what's
+     * returned by toString(). Height and width are non-negative and correspond to the string.
      * EFFECTS: Updates the board to the configuration given in a string. */
     public void stringToBoard(String string, int height, int width) {
         ArrayList<ArrayList<Cell>> tempArray = cells;
