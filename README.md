@@ -43,15 +43,18 @@ of the Game of Life. You can set the size of the grid, the
 amount of time passed per iteration, the initial state of
 the system, colors, and other things. The list of features
 can be found in the user stories which I'll update 
-throughout the project. 
+throughout the project.
 
 ## User Stories
 
-- As a user, I want to be able to add cells to my game 
-board.
+- As a user, I want to be able to add a row of cells to the board. 
+
+- As a user, I want to be able to add a column of cells to the board.
   
-- As a user, I want to be able to set the initial state of
-the system by choosing which cells are dead and alive.
+- As a user, I want to be able to set the state of individual cells
+on the board.
   
-- As a user, I want to be able to pause the simulation and
-modify it's state at any point. 
+- As a user, I want to be able to randomize the board. 
+
+## Updates
+- Oct 12, 2021: Finished a console based implementation. 
