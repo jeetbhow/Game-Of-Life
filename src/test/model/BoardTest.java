@@ -12,7 +12,7 @@ public class BoardTest {
                             "| . | . | . |";
 
     final String CENTER_ALIVE = "| . | . | . |\n" +
-                                "| . | * | . |\n" +
+                                "| . | O | . |\n" +
                                 "| . | . | . |";
 
     final String FOUR_SQUARE = "| . | . | . | . |\n" +
@@ -23,18 +23,18 @@ public class BoardTest {
     final String FOUR_SQUARE_ALIVE = "| . | . | . | . |\n" +
                                      "| . | . | . | . |\n" +
                                      "| . | . | . | . |\n" +
-                                     "| . | . | . | * |";
+                                     "| . | . | . | O |";
 
-    final String BLINKER_1 = "| . | * | . |\n" +
-                             "| . | * | . |\n" +
-                             "| . | * | . |";
+    final String BLINKER_1 = "| . | O | . |\n" +
+                             "| . | O | . |\n" +
+                             "| . | O | . |";
 
     final String BLINKER_2 = "| . | . | . |\n" +
-                             "| * | * | * |\n" +
+                             "| O | O | O |\n" +
                              "| . | . | . |";
 
-    final String BLOCK = "| . | * | * |\n" +
-                         "| . | * | * |\n" +
+    final String BLOCK = "| . | O | O |\n" +
+                         "| . | O | O |\n" +
                          "| . | . | . |";
 
     @BeforeEach
@@ -83,8 +83,8 @@ public class BoardTest {
 
     @Test
     void scan() {
-        String corner = "[., .]";
-        String side = "[., ., .]";
+        String corner = "[., ., .]";
+        String side = "[., ., ., ., .]";
         String center = "[., ., ., ., ., ., ., .]";
 
         assertEquals(corner, testBoard.scan(0,0).toString());

@@ -58,10 +58,6 @@ public class Board {
         return cells;
     }
 
-    public void setCells(ArrayList<ArrayList<Cell>> cells) {
-        this.cells = cells;
-    }
-
     /* REQUIRES: Row and column are non-negative.
        EFFECTS: Returns the Cell at the given index. */
     public Cell getCell(int row, int column) {
@@ -193,7 +189,7 @@ public class Board {
             }
             if (next.equals(".")) {
                 tempArray.get(i).set(j, new Cell(DEAD));
-            } else if (next.equals("*")) {
+            } else if (next.equals("O")) {
                 tempArray.get(i).set(j, new Cell(ALIVE));
             }
             j++;

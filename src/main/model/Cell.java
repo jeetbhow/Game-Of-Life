@@ -87,7 +87,7 @@ public class Cell {
 
     /* EFFECTS: Returns a string representation of the current state. */
     public String toString() {
-        return (this.state == ALIVE) ? "*" : ".";
+        return (this.state == ALIVE) ? "O" : ".";
     }
 
     /* EFFECTS: Equality check for cells. Returns true if o has the same state or if it's

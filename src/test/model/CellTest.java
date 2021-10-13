@@ -58,8 +58,8 @@ public class CellTest {
         String alive2 = aliveCell.toString();
 
         assertEquals(".", dead);
-        assertEquals("*", alive);
-        assertEquals("*", alive2);
+        assertEquals("O", alive);
+        assertEquals("O", alive2);
         assertNotEquals(dead, alive);
         assertEquals(dead, dead2);
         assertEquals(alive, alive2);
