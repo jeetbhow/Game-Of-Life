@@ -1,12 +1,8 @@
 package model;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static model.State.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -29,6 +25,17 @@ public class BoardTest {
                                      "| . | . | . | . |\n" +
                                      "| . | . | . | * |";
 
+    final String BLINKER_1 = "| . | * | . |\n" +
+                             "| . | * | . |\n" +
+                             "| . | * | . |";
+
+    final String BLINKER_2 = "| . | . | . |\n" +
+                             "| * | * | * |\n" +
+                             "| . | . | . |";
+
+    final String BLOCK = "| . | * | * |\n" +
+                         "| . | * | * |\n" +
+                         "| . | . | . |";
 
     @BeforeEach
     void initialize() {
@@ -37,20 +44,17 @@ public class BoardTest {
 
 
     @Test
-    @DisplayName("Constructor tests")
     void constructor() {
-        assertEquals(3, testBoard.width);
-        assertEquals(3, testBoard.height);
+        assertEquals(3, testBoard.getWidth());
+        assertEquals(3, testBoard.getHeight());
     }
 
     @Test
-    @DisplayName("toString tests")
     void toStringTests() {
         assertEquals(ALL_DEAD, testBoard.toString());
     }
 
     @Test
-    @DisplayName("addRows and addColumns")
     void addRowsAndAddColumns() {
         // Expecting a board with 4 rows and columns.
         testBoard.addColumn();
@@ -59,8 +63,7 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("flipCell tests")
-    void flipCellTests() {
+    void flipCell() {
         // Expecting the center cell to flip to ALIVE.
         testBoard.flipCell(1,1);
         assertEquals(CENTER_ALIVE, testBoard.toString());
@@ -76,5 +79,33 @@ public class BoardTest {
         testBoard.addRow();
         testBoard.flipCell(3,3);
         assertEquals(FOUR_SQUARE_ALIVE, testBoard.toString());
+    }
+
+    @Test
+    void scan() {
+        String corner = "[., .]";
+        String side = "[., ., .]";
+        String center = "[., ., ., ., ., ., ., .]";
+
+        assertEquals(corner, testBoard.scan(0,0).toString());
+        assertEquals(corner, testBoard.scan(0,2).toString());
+        assertEquals(corner, testBoard.scan(2,0).toString());
+        assertEquals(corner, testBoard.scan(2,2).toString());
+
+        assertEquals(side, testBoard.scan(0,1).toString());
+        assertEquals(side, testBoard.scan(1,0).toString());
+        assertEquals(side, testBoard.scan(2,1).toString());
+        assertEquals(side, testBoard.scan(1, 2).toString());
+
+        assertEquals(center, testBoard.scan(1,1).toString());
+    }
+
+    @Test
+    void update() {
+        testBoard.stringToBoard(BLINKER_1, 3, 3);
+        assertEquals(BLINKER_2, testBoard.update().toString());
+
+        testBoard.stringToBoard(BLOCK, 3, 3);
+        assertEquals(BLOCK, testBoard.update().toString());
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static model.State.*;
 
@@ -13,29 +14,23 @@ import static model.State.*;
 public class Cell {
     private State state;
 
-    /*
-     * EFFECTS: Default constructor. Instantiates a dead cell.
-     */
+    /* EFFECTS: Instantiates a dead cell. */
     public Cell() {
         this.state = DEAD;
     }
 
-    /*
-     * EFFECTS: Alternate constructor. Instantiates a cell with the given state.
-     */
+    /* EFFECTS: Instantiates a cell with the given state. */
     public Cell(State state) {
         this.state = state;
     }
 
+    /* EFFECTS: Instantiates a copy of another Cell. */
+    public Cell(Cell cell) {
+        this.state = cell.getState();
+    }
+
     /* REQUIRES: surroundingCells.length > 0.
-     * EFFECTS: Reads the state of the surrounding cells and generates
-     * a score based on the sum of the states of each cell. States
-     * have a value of either 0 (DEAD) or 1 (ALIVE), and so the
-     * maximum score is 8 (all surrounding cells are alive) or
-     * 0 (all surrounding cells are dead). This sum is passed to
-     * updateState(), which decides whether or not the cell should
-     * die or stay alive. Returns the score.
-     */
+     * EFFECTS: Reads the state of the surrounding cells and updates state.*/
     public int interact(ArrayList<Cell> surroundingCells) {
         int score = 0;
         for (Cell cell : surroundingCells) {
@@ -74,6 +69,19 @@ public class Cell {
             case ALIVE:
                 this.state = DEAD;
                 break;
+        }
+    }
+
+    /* MODIFIES: Cell.state
+       EFFECTS: Set cell to a random state.
+     */
+    public void randomize() {
+        Random random = new Random();
+        int state = random.nextInt(2);
+        if (state == 0) {
+            this.state = DEAD;
+        } else {
+            this.state = ALIVE;
         }
     }
 

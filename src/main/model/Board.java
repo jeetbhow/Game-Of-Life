@@ -1,20 +1,23 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static model.State.*;
 
-/* A board consists of a 2D array of cells. You can set the dimensions
+/* A Board consists of a 2D array of cells. You can set the dimensions
  * of the board, and add and remove cells from it. You can also change
  * the state of a cell. */
 
 public class Board {
-    int height;
-    int width;
+    private int height;
+    private int width;
     private ArrayList<ArrayList<Cell>> cells;
 
-    /* EFFECTS: Instantiates a Board with the given width and height. */
+
+    /* REQUIRES: Width and height are non-negative.
+       EFFECTS: Instantiates a Board with the given width and height. */
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
@@ -22,8 +25,21 @@ public class Board {
         createBoard();
     }
 
-    /* MODIFIES: this
-     * EFFECTS: Adds rows and columns to the Board based on the width and height. */
+    /* EFFECTS: Instantiates a clone of another board. */
+    public Board(Board original) {
+        this.height = original.getHeight();
+        this.width = original.getWidth();
+        this.cells = new ArrayList<>();
+        for (int i = 0; i < this.height; i++) {
+            this.cells.add(new ArrayList<Cell>());
+            for (int j = 0; j < this.width; j++) {
+                this.cells.get(i).add(new Cell(original.getCell(i,j)));
+            }
+        }
+    }
+
+    /* MODIFIES: This
+     * EFFECTS: Adds rows and columns to the Board. */
     private void createBoard() {
         for (int i = 0; i < height; i++) {
             cells.add(new ArrayList<>());
@@ -41,15 +57,22 @@ public class Board {
         return height;
     }
 
-    /* EFFECTS: Takes two integers row and column as input
-         and returns the Cell at the given index. */
+    public ArrayList<ArrayList<Cell>> getCells() {
+        return cells;
+    }
+
+    public void setCells(ArrayList<ArrayList<Cell>> cells) {
+        this.cells = cells;
+    }
+
+    /* REQUIRES: Row and column are non-negative.
+       EFFECTS: Returns the Cell at the given index. */
     public Cell getCell(int row, int column) {
         return cells.get(row).get(column);
     }
 
-    /* MODIFIES: this
-     * EFFECTS: Increments width by one and adds a new
-     * column of dead cells to the Board. */
+    /* MODIFIES: This
+     * EFFECTS: Adds a new column of dead cells to the board. */
     public void addColumn() {
         width++;
         for (ArrayList<Cell> index : cells) {
@@ -57,9 +80,8 @@ public class Board {
         }
     }
 
-    /* MODIFIES: this
-     * EFFECTS: Increments rows by one and adds
-     * a new row of dead cells to the Board. */
+    /* MODIFIES: This
+     * EFFECTS: Adds a new row of dead cells to the Board. */
     public void addRow() {
         height++;
         ArrayList<Cell> listToAdd = new ArrayList<>();
@@ -69,20 +91,66 @@ public class Board {
         cells.add(listToAdd);
     }
 
-    /* REQUIRES: row and column must be non-negative.
-     * MODIFIES: this
+    /* REQUIRES: Row and column must be non-negative.
+     * MODIFIES: This
      * EFFECTS: Flips the state of a Cell on the Board. */
     public void flipCell(int row, int column) {
         cells.get(row).get(column).flip();
     }
 
-    /* REQUIRES: row and column must be non-negative.
-     * EFFECTS: Takes a location on the board as input (row and column)
-     * and outputs an ArrayList<Cell> that contains all of the other cells
-     * around the location of interest. */
-    public ArrayList<Cell> getSurroundingCells(int row, int column) {
-        ArrayList<Cell> output = new ArrayList<>();
-        return output;
+    /* REQUIRES: Row and column are non-negative.
+     * EFFECTS: Returns a list of all cells around a point. */
+    public ArrayList<Cell> scan(int row, int column) {
+        ArrayList<Cell> cells = new ArrayList<>();
+        if (row > 0) {
+            cells.add(this.getCell(row - 1, column));
+            if (column > 0) {
+                cells.add(this.getCell(row - 1, column - 1));
+            }
+            if (column < width - 1) {
+                cells.add(this.getCell(row - 1, column + 1));
+            }
+        }
+        if (column > 0) {
+            cells.add(this.getCell(row, column - 1));
+        }
+        if (row < height - 1) {
+            cells.add(this.getCell(row + 1, column));
+            if (column > 0) {
+                cells.add(this.getCell(row + 1, column - 1));
+            }
+            if (column < width - 1) {
+                cells.add(this.getCell(row + 1, column + 1));
+            }
+        }
+        if (column < width - 1) {
+            cells.add(this.getCell(row, column + 1));
+        }
+        return cells;
+    }
+
+    // EFFECTS: Updates the board and returns it.
+    public Board update() {
+        Board nextGeneration = new Board(this);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                ArrayList<Cell> surroundingCells = this.scan(i, j);
+                Cell curr = nextGeneration.getCell(i,j);
+                curr.interact(surroundingCells);
+            }
+        }
+        this.cells = nextGeneration.getCells();
+        return nextGeneration;
+    }
+
+    /* MODIFIES: This
+       EFFECTS: Sets the board to a random configuration. */
+    public void randomize() {
+        for (ArrayList<Cell> index : cells) {
+            for (Cell cell : index) {
+                cell.randomize();
+            }
+        }
     }
 
     /* EFFECTS: Returns a string representation of the board. */
@@ -99,11 +167,10 @@ public class Board {
         return string.toString();
     }
 
-    /* MODIFIES: this
-     * REQUIRES: height and width must correspond to the actual
-     * height and width in of the string.
-     * EFFECTS: Takes a string containing the toString output of a board
-     * as input and transforms the board to match the string. */
+    /* MODIFIES: This
+     * REQUIRES: String must contain a grid of "." and "*" characters separated by " | ", like what's
+     * returned by toString(). Height and width are non-negative and correspond to this grid.
+     * EFFECTS: Updates the board to the configuration given in a string. */
     public void stringToBoard(String string, int height, int width) {
         ArrayList<ArrayList<Cell>> tempArray = cells;
         Scanner s = new Scanner(string);
