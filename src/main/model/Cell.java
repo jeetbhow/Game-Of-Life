@@ -63,13 +63,10 @@ public class Cell {
      * EFFECTS: Flips the current state to the opposite one.
      */
     public void flip() {
-        switch (this.state) {
-            case DEAD:
-                this.state = ALIVE;
-                break;
-            case ALIVE:
-                this.state = DEAD;
-                break;
+        if (this.state == ALIVE) {
+            this.state = DEAD;
+        } else {
+            this.state = ALIVE;
         }
     }
 
