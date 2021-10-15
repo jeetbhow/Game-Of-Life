@@ -48,13 +48,10 @@ public class Cell {
      * DEAD: alive if count == 3;
      */
     private void updateState(int score) {
-        switch (this.state) {
-            case DEAD:
-                this.state = (score == 3) ? ALIVE : DEAD;
-                break;
-            case ALIVE:
-                this.state = (score < 2 || score > 3) ? DEAD : ALIVE;
-                break;
+        if (this.state == DEAD) {
+            this.state  = (score == 3) ? ALIVE: DEAD;
+        } else {
+            this.state = (score < 2 || score > 3) ? DEAD : ALIVE;
         }
     }
 
