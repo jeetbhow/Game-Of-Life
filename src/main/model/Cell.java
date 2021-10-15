@@ -49,7 +49,7 @@ public class Cell {
      */
     private void updateState(int score) {
         if (this.state == DEAD) {
-            this.state  = (score == 3) ? ALIVE: DEAD;
+            this.state  = (score == 3) ? ALIVE : DEAD;
         } else {
             this.state = (score < 2 || score > 3) ? DEAD : ALIVE;
         }
