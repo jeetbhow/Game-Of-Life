@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import static model.State.*;
 
-/* A Board consists of a 2D array of cells.  */
+/*
+ * Represents a 2D array of cells. Contains a height and width.
+ */
 
 public class Board {
     private int height;

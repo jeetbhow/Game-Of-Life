@@ -108,4 +108,11 @@ public class BoardTest {
         testBoard.stringToBoard(BLOCK, 3, 3);
         assertEquals(BLOCK, testBoard.update().toString());
     }
+
+    @Test
+    void randomize() {
+        Board prev = new Board(testBoard);
+        testBoard.randomize();
+        assertNotEquals(prev, testBoard);
+    }
 }

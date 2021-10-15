@@ -5,11 +5,10 @@ import java.util.Random;
 
 import static model.State.*;
 
-
 /*
- * The basic unit of a board. Cells contain a state
- * of either DEAD or ALIVE. They can read the state of the surrounding cells
- * on the board and use that information to update their state.
+ * The basic unit of the game. Each cell contains a state of either DEAD or ALIVE.
+ * Cells interact with their neighbors and update their own state based on the amount
+ * of live and dead cells in their vicinity.
  */
 public class Cell {
     private State state;
@@ -30,7 +29,8 @@ public class Cell {
     }
 
     /* REQUIRES: surroundingCells.length > 0.
-     * EFFECTS: Reads the state of the surrounding cells and updates state.*/
+     * MODIFIES: this
+     * EFFECTS: Interact with neighbor cells to update state. */
     public int interact(ArrayList<Cell> surroundingCells) {
         int score = 0;
         for (Cell cell : surroundingCells) {
@@ -40,7 +40,7 @@ public class Cell {
         return score;
     }
 
-    /* MODIFIES: this.state
+    /* MODIFIES: this
      * EFFECTS: Changes the state of the cell based on the
      * score that was passed to it from interact(). The
      * response changes based on the current state of the cell.
@@ -58,8 +58,9 @@ public class Cell {
         }
     }
 
-    /* MODIFIES: this.state
-       EFFECTS: Flips the current state to the opposite one.
+    /*
+     * MODIFIES: this
+     * EFFECTS: Flips the current state to the opposite one.
      */
     public void flip() {
         switch (this.state) {
@@ -72,8 +73,9 @@ public class Cell {
         }
     }
 
-    /* MODIFIES: Cell.state
-       EFFECTS: Set cell to a random state.
+    /*
+     * MODIFIES: this
+     * EFFECTS: Set cell to a random state.
      */
     public void randomize() {
         Random random = new Random();
@@ -90,9 +92,9 @@ public class Cell {
         return (this.state == ALIVE) ? "O" : ".";
     }
 
-    /* EFFECTS: Equality check for cells. Returns true if o has the same state or if it's
-     * the same object. Returns false if o isn't a cell, or if it doesn't have
-     * the same state.
+    /*
+     * EFFECTS: Returns true if o has the same state or if it's
+     * the same object.
      */
     public boolean equals(Object o) {
         if (o == this) {
@@ -105,6 +107,9 @@ public class Cell {
         }
     }
 
+    /*
+     * EFFECT: Returns the current state.
+     */
     public State getState() {
         return state;
     }
