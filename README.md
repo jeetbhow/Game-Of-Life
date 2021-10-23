@@ -10,17 +10,17 @@ Every iteration of the game, cells exchange information
 with their neighbors and update their own state according
 to the state of their neighbors. This can lead to the 
 spontaneous emergence of some interesting patterns and 
-structures.
+structures. For more information, please visit 
+https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
 The inspiration for this project came 
 after watching a talk called *The Art of Code* 
 by Dylan Beattie. It's about how code
 can be art. This is where I saw a demonstration of
 The Game of Life, and I've been itching to write 
-my own implementation ever since. 
-
-In case you're interested, The Art of Code can be 
-seen here: https://www.youtube.com/watch?v=6avJHaC3C2U&t=79s
+my own implementation ever since. In case you're interested, 
+The Art of Code can be seen here:
+https://www.youtube.com/watch?v=6avJHaC3C2U&t=79s
 
 ## The Rules
 
@@ -55,6 +55,11 @@ throughout the project.
 on the board.
   
 - As a user, I want to be able to randomize the board. 
+
+- As a user, I want to be able to save the state of the board to a file. 
+
+- As a user, I want to be able to load the state of the board from a file and
+resume the simulation. 
 
 ## Updates
 - Oct 12, 2021: Finished a console based implementation. 
