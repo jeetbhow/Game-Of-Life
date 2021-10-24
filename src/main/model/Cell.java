@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.json.JSONObject;
+import persistence.Writeable;
+
 import static model.State.*;
 
 /*
@@ -10,6 +13,7 @@ import static model.State.*;
  * Cells interact with their neighbors and update their own state based on the amount
  * of live and dead cells in their vicinity.
  */
+
 public class Cell {
     private State state;
 
@@ -105,6 +109,6 @@ public class Cell {
      * EFFECT: Returns the current state.
      */
     public State getState() {
-        return state;
+        return this.state;
     }
 }
