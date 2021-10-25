@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.json.JSONObject;
-import persistence.Writeable;
-
 import static model.State.*;
 
 /*

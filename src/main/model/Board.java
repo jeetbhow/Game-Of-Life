@@ -1,7 +1,5 @@
 package model;
 
-import persistence.Writeable;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
