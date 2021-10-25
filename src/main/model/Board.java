@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import static model.State.*;
 
@@ -210,5 +212,13 @@ public class Board {
         cells = tempArray;
         this.height = height;
         this.width = width;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("height", this.height);
+        json.put("width", this.width);
+        json.put("states", this.cells);
+        return json;
     }
 }

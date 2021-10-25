@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import static model.State.*;
+
 /* Reads a JSON file and converts it into a board */
 public class JsonReader {
     String source;
@@ -56,8 +58,8 @@ public class JsonReader {
             cells.add(new ArrayList<>());
             for (int j = 0; j < width; j++) {
                 Cell cell = new Cell();
-                int state = states.getJSONArray(i).getInt(j);
-                if (state == 1) {
+                JSONObject state = states.getJSONArray(i).getJSONObject(j);
+                if (state.get("state").equals("ALIVE")) {
                     cell.flip();
                 }
                 cells.get(i).add(cell);
