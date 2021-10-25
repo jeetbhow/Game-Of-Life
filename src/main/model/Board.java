@@ -24,6 +24,17 @@ public class Board {
         createBoard();
     }
 
+    /*
+     * REQUIRES: Width and height are non-negative.
+     * EFFECTS: Instantiates a Board with the given height, width, and contents.
+     */
+    public Board(int width, int height, ArrayList<ArrayList<Cell>> cells) {
+        this.width = width;
+        this.height = height;
+        this.cells = cells;
+        createBoard();
+    }
+
     /* EFFECTS: Instantiates a clone of another board. */
     public Board(Board original) {
         this.height = original.getHeight();
