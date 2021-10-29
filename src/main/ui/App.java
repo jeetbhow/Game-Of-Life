@@ -148,10 +148,11 @@ public class App {
                 System.out.println("Type s to save the board and quit. You have to do it quickly.");
             }
         };
-        timer.scheduleAtFixedRate(task, 1000, 1000);
+        timer.scheduleAtFixedRate(task, 2000, 2000);
         scanForExit();
     }
 
+    /* EFFECT: If the user types "s", then save the board and exit. */
     public void scanForExit() {
         while (scanner.hasNext()) {
             if (scanner.next().equals("s")) {
@@ -161,10 +162,9 @@ public class App {
                     System.out.println("Board saved in " + DESTINATION);
                     jsonWriter.close();
                 } catch (IOException e) {
-                    System.out.println("Could not save file.");
-                } finally {
-                    System.exit(0);
+                    System.out.println("There was an error saving the file. Could not generate board.json.");
                 }
+                System.exit(0);
             }
         }
     }

@@ -14,7 +14,11 @@ import java.util.stream.Stream;
 
 import static model.State.*;
 
-/* Reads a JSON file and converts it into a board */
+/*
+ * An object that reads a JSON file and converts it into a Board.
+ * Based off of JsonReader.java from JsonSerializationDemo in CPSC 210.
+ */
+
 public class JsonReader {
     String source;
 
@@ -23,19 +27,19 @@ public class JsonReader {
         this.source = source;
     }
 
-    /* EFFECTS: Read data from a JSON file and convert it into Board data. */
+    /* EFFECTS: Reads data from a JSON file and converts it into Board data.
+    * If the file doesn't exist, then through an IOException. */
     public Board read() throws IOException {
         JSONObject data = readFile();
-        Board board = parse(data);
-        return board;
+        return parse(data);
     }
 
-    /* EFFECTS: Takes text data from a .json file and converts it into a JSONObject */
+    /* EFFECTS: Takes text data from a .json file and converts it into a JSONObject.
+    *  Throws an IOException if the file doesn't exist. */
     private JSONObject readFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> sb.append(s));
-        }
+        Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8);
+        stream.forEach(sb::append);
         return new JSONObject(sb.toString());
     }
 
@@ -56,6 +60,6 @@ public class JsonReader {
                 cells.get(i).add(cell);
             }
         }
-        return new Board(height, width, cells);
+        return new Board(width, height, cells);
     }
 }

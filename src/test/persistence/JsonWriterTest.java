@@ -8,8 +8,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/* Based off of JsonWriterTest in JsonSerializationDemo from CPSC 210. */
+
 public class JsonWriterTest {
-    private final String DESTINATION = "./data/board.json";
+    private final String DESTINATION = "./data/testWrite.json";
     private final String ALL_DEAD = "| . | . | . |\n" +
                                     "| . | . | . |\n" +
                                     "| . | . | . |";
@@ -25,8 +27,39 @@ public class JsonWriterTest {
         testBoard = new Board(3, 3);
     }
 
+
     @Test
-    void deadBoard() {
+    void testWriterNoCells() {
+        try {
+            Board board = new Board(0,0);
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyBoard.json");
+            writer.open();
+            writer.write(board);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterEmptyBoard.json");
+            board = reader.read();
+            assertEquals(0, board.getWidth());
+            assertEquals(0, board.getHeight());
+            assertTrue(board.getCells().isEmpty());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testWriterInvalidFile() {
+        try {
+            JsonWriter writer = new JsonWriter("../d\0wrongformat.json");
+            writer.open();
+            fail("IOException was expected");
+        } catch (IOException e) {
+            // pass
+        }
+    }
+
+    @Test
+    void testWriterGenericBoard() {
         testBoard.stringToBoard(ALL_DEAD,3,3);
         try {
             jsonWriter.open();

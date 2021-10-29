@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/* Based off of JsonReaderTest in JsonSerializationDemo from CPSC 210. */
 
 public class JsonReaderTest {
     private JsonReader jsonReader;
@@ -25,7 +26,31 @@ public class JsonReaderTest {
     }
 
     @Test
-    void read() {
+    void testReadNoSuchFile() {
+        JsonReader reader = new JsonReader("./data/null.json");
+        try {
+            Board board = reader.read();
+            fail("Exception wasn't caught");
+        } catch (IOException e) {
+
+        }
+    }
+
+    @Test
+    void testReaderEmptyBoard() {
+        JsonReader reader = new JsonReader("./data/emptyBoard.json");
+        try {
+            Board board = reader.read();
+            assertEquals(0, board.getHeight());
+            assertEquals(0,board.getWidth());
+            assertTrue(board.getCells().isEmpty());
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    void testReadWithGenericFile() {
         Board testBoard = new Board(3,3);
         testBoard.stringToBoard(ALL_DEAD, 3,3);
         Board jsonBoard = null;
@@ -34,7 +59,6 @@ public class JsonReaderTest {
         } catch (IOException e) {
             fail("couldn't read file");
         }
-
         assertEquals(testBoard.toString(), jsonBoard.toString());
     }
 }

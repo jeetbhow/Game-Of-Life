@@ -4,7 +4,9 @@ import model.Board;
 import org.json.JSONObject;
 import java.io.*;
 
-// Represents a writer that writes JSON representation of workroom to file
+// An object that can save a JSON file containing the configuration of a Board.
+// Based off of the JSON writer class in JsonSerializationDemo from CPSC 210.
+
 public class JsonWriter {
     private static final int TAB = 2;
     private PrintWriter writer;
@@ -16,27 +18,27 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
-    // be opened for writing
+    // EFFECTS: If the file exists, then loads it onto writer. If not, then
+    // throws a FileNotFoundException.
     public void open() throws FileNotFoundException {
-        writer = new PrintWriter(new File(destination));
+        writer = new PrintWriter(destination);
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: Writes a JSON representation of board to file.
     public void write(Board board) {
         JSONObject json = board.toJson();
         saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
-    // EFFECTS: closes writer
+    // EFFECTS: Closes writer
     public void close() {
         writer.close();
     }
 
     // MODIFIES: this
-    // EFFECTS: writes string to file
+    // EFFECTS: Writes string to file.
     private void saveToFile(String json) {
         writer.print(json);
     }

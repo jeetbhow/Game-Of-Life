@@ -105,10 +105,13 @@ public class BoardTest {
     @Test
     void update() {
         testBoard.stringToBoard(BLINKER_1, 3, 3);
+        System.out.println(testBoard);
         assertEquals(BLINKER_2, testBoard.update().toString());
+        System.out.println(testBoard);
 
         testBoard.stringToBoard(BLOCK, 3, 3);
         assertEquals(BLOCK, testBoard.update().toString());
+        System.out.println(testBoard);
     }
 
     @Test
