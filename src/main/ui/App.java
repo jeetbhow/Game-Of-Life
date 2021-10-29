@@ -1,13 +1,8 @@
 package ui;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import javafx.scene.input.KeyCode;
 import model.Board;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
