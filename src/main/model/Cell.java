@@ -29,9 +29,10 @@ public class Cell {
         this.state = cell.getState();
     }
 
-    /* REQUIRES: surroundingCells.length > 0.
+    /*
      * MODIFIES: this
-     * EFFECTS: Interact with neighbor cells to update state. */
+     * EFFECTS: Interact with neighbor cells to update state.
+     */
     public int interact(ArrayList<Cell> surroundingCells) {
         int score = 0;
         for (Cell cell : surroundingCells) {
@@ -41,12 +42,12 @@ public class Cell {
         return score;
     }
 
-    /* MODIFIES: this
+    /*
+     * MODIFIES: this
      * EFFECTS: Changes the state of the cell based on the
-     * score that was passed to it from interact(). The
-     * response changes based on the current state of the cell.
-     * ALIVE: die if count > 3 or count < 2
-     * DEAD: alive if count == 3;
+     * score that was passed to it from interact().
+     * if ALIVE: die if count > 3 or count < 2
+     * if DEAD: alive if count == 3;
      */
     private void updateState(int score) {
         if (this.state == DEAD) {
@@ -88,8 +89,8 @@ public class Cell {
     }
 
     /*
-     * EFFECTS: Returns true if o has the same state or if it's
-     * the same object.
+     * EFFECTS: returns true if o is the same object, false if it's not a Cell, and
+     * true if it's a Cell with the same state as this.
      */
     public boolean equals(Object o) {
         if (o == this) {

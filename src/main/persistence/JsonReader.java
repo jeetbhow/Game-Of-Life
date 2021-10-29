@@ -18,26 +18,19 @@ import static model.State.*;
 public class JsonReader {
     String source;
 
-
-    /*
-     * EFFECTS: Initializes a JsonReader.
-     */
+    /* EFFECTS: Initializes a JsonReader. */
     public JsonReader(String source) {
         this.source = source;
     }
 
-    /*
-     * EFFECTS: Read data from a JSON file and convert it into Board data.
-     */
+    /* EFFECTS: Read data from a JSON file and convert it into Board data. */
     public Board read() throws IOException {
         JSONObject data = readFile();
         Board board = parse(data);
         return board;
     }
 
-    /*
-     * EFFECTS: Takes text data from a .json file and converts it into a JSONObject
-     */
+    /* EFFECTS: Takes text data from a .json file and converts it into a JSONObject */
     private JSONObject readFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
@@ -46,9 +39,7 @@ public class JsonReader {
         return new JSONObject(sb.toString());
     }
 
-    /*
-     * EFFECTS: Parses the data from the JSONObject and converts it into a Board.
-     */
+    /* EFFECTS: Parses the data from the JSONObject and converts it into a Board. */
     private Board parse(JSONObject json) {
         int height = json.getInt("height");
         int width = json.getInt("width");
@@ -67,5 +58,4 @@ public class JsonReader {
         }
         return new Board(height, width, cells);
     }
-
 }

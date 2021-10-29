@@ -37,7 +37,6 @@ public class JsonWriterTest {
         } catch (IOException e) {
             fail("file not found");
         }
-
     }
 
 }

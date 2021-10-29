@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 import static model.State.*;
 
@@ -27,7 +26,7 @@ public class Board {
     }
 
     /*
-     * REQUIRES: Width and height are non-negative.
+     * REQUIRES: width and height are non-negative.
      * EFFECTS: Instantiates a Board with the given height, width, and contents.
      */
     public Board(int width, int height, ArrayList<ArrayList<Cell>> cells) {
@@ -50,8 +49,8 @@ public class Board {
         }
     }
 
-    /* MODIFIES: This
-     * EFFECTS: Adds rows and columns to the Board. */
+    /* MODIFIES: this
+     * EFFECTS: Adds rows and columns to the Board that was instantiated. */
     private void createBoard() {
         for (int i = 0; i < height; i++) {
             cells.add(new ArrayList<>());
@@ -79,7 +78,7 @@ public class Board {
         return cells.get(row).get(column);
     }
 
-    /* MODIFIES: This
+    /* MODIFIES: this
      * EFFECTS: Adds a new column of dead cells to the board. */
     public void addColumn() {
         width++;
@@ -88,7 +87,7 @@ public class Board {
         }
     }
 
-    /* MODIFIES: This
+    /* MODIFIES: this
      * EFFECTS: Adds a new row of dead cells to the Board. */
     public void addRow() {
         height++;
@@ -99,15 +98,19 @@ public class Board {
         cells.add(listToAdd);
     }
 
-    /* REQUIRES: Row and column must be non-negative.
-     * MODIFIES: This
-     * EFFECTS: Flips the state of a Cell on the Board. */
+    /*
+     * REQUIRES: row and column are non-negative.
+     * MODIFIES: this
+     * EFFECTS: Flips the state of a Cell on the Board at row and column.
+     */
     public void flipCell(int row, int column) {
         cells.get(row).get(column).flip();
     }
 
-    /* REQUIRES: Row and column are non-negative.
-     * EFFECTS: Returns a list of all cells around a point. */
+    /*
+     * REQUIRES: Row and column are non-negative.
+     * EFFECTS: Returns a list of all cells around a point on the board.
+     */
     public ArrayList<Cell> scan(int row, int column) {
         ArrayList<Cell> cells = new ArrayList<>();
         cells = checkVerticalAndCorners(row, column, cells);
@@ -120,9 +123,10 @@ public class Board {
         return cells;
     }
 
-    /* REQUIRES: row and column are non-negative. Cells is non-empty.
-       MODIFIES: Cells
-       EFFECTS: Checks the top and bottom cells as well as the corners.
+    /*
+     * REQUIRES: row and column are non-negative.
+     * MODIFIES: this
+     * EFFECTS: Checks the top and bottom cells as well as the corners.
      */
     private ArrayList<Cell> checkVerticalAndCorners(int row, int column, ArrayList<Cell> cells) {
         if (row > 0) {
@@ -146,7 +150,10 @@ public class Board {
         return cells;
     }
 
-    // EFFECTS: Updates the board and returns it.
+    /*
+     * MODIFIES: this.
+     * EFFECTS: Updates the board and returns it.
+     */
     public Board update() {
         Board nextGeneration = new Board(this);
         for (int i = 0; i < height; i++) {
@@ -160,8 +167,9 @@ public class Board {
         return nextGeneration;
     }
 
-    /* MODIFIES: This
-       EFFECTS: Sets the board to a random configuration. */
+    /* MODIFIES: this
+     * EFFECTS: Sets the board to a random configuration.
+     */
     public void randomize() {
         for (ArrayList<Cell> index : cells) {
             for (Cell cell : index) {
@@ -184,10 +192,12 @@ public class Board {
         return string.toString();
     }
 
-    /* MODIFIES: This
-     * REQUIRES: String contains a grid of "." and "*" characters separated by " | ", like what's
+    /*
+     * MODIFIES: this
+     * REQUIRES: string contains a grid of "." and "*" characters separated by " | ", like what's
      * returned by toString(). Height and width are non-negative and correspond to the string.
-     * EFFECTS: Updates the board to the configuration given in a string. */
+     * EFFECTS: Updates the board to the configuration given in string.
+     */
     public void stringToBoard(String string, int height, int width) {
         ArrayList<ArrayList<Cell>> tempArray = cells;
         Scanner s = new Scanner(string);
@@ -214,6 +224,11 @@ public class Board {
         this.width = width;
     }
 
+    /*
+     * MODIFIES: JSONObject.map
+     * EFFECTS: Returns a JSON object containing the height, width, and states of the cells
+     * on the board.
+     */
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("height", this.height);
