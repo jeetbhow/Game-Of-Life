@@ -12,8 +12,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static model.State.*;
-
 /*
  * An object that reads a JSON file and converts it into a Board.
  * Based off of JsonReader.java from JsonSerializationDemo in CPSC 210.

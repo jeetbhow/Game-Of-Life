@@ -62,4 +62,6 @@ on the board.
 resume the simulation. 
 
 ## Updates
-- Oct 12, 2021: Finished a console based implementation. 
+- Oct 12, 2021: Finished a console based implementation.
+- Nov 7, 2021: Added the ability to save and pick off from
+where you left off. 
