@@ -3,13 +3,12 @@ package ui.buttons;
 import model.Board;
 import ui.Grid;
 
-// A button that adds a row onto the board.
-public class AddRowButton extends Button {
+public class SetSizeButton extends Button {
 
     // EFFECTS: Instantiates an AddRow button.
-    public AddRowButton(Board board, Grid grid) {
+    public SetSizeButton(Board board, Grid grid) {
         super(board, grid);
-        setText("Add Row");
+        setText("Set Size");
     }
 
     // MODIFIES: Board.cells
@@ -17,6 +16,6 @@ public class AddRowButton extends Button {
     @Override
     public void activate() {
         grid.setUnitHeight(grid.getHeight() / board.getHeight());
-        board.addRow();
+        grid.setUnitWidth(grid.getUnitWidth() / board.getWidth());
     }
 }
