@@ -3,11 +3,12 @@ package ui.buttons;
 import model.Board;
 
 // A button that adds a row onto the board.
-public class AddRow extends Button {
+public class AddRowButton extends Button {
 
     // EFFECTS: Instantiates an AddRow button.
-    public AddRow(Board board) {
+    public AddRowButton(Board board) {
         super(board);
+        setText("Add Row");
     }
 
     // MODIFIES: Board.cells
