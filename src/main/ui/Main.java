@@ -1,13 +1,13 @@
 package ui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
+import model.Board;
+
+import java.awt.*;
+
+// The program runs from here.
 public class Main {
     public static void main(String[] args) {
-        App app = new App();
+
     }
 }
-
-
