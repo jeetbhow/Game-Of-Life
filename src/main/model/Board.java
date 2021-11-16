@@ -236,4 +236,13 @@ public class Board {
         json.put("states", this.cells);
         return json;
     }
+
+    public void setSize(int value) {
+        this.height = value;
+        this.width = value;
+        for (int i = 0; i < value; i++) {
+            addRow();
+            addColumn();
+        }
+    }
 }
