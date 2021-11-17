@@ -1,51 +1,133 @@
 package ui;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 import model.Board;
-import ui.buttons.AddColumnButton;
-import ui.buttons.AddRowButton;
-import ui.buttons.RunSimulationButton;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-public class GameOfLife {
-    public static final int SCREEN_WIDTH = 750;
-    public static final int SCREEN_HEIGHT = 750;
+public class GameOfLife extends JFrame implements ActionListener, ChangeListener {
+    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_HEIGHT = 1000;
+    public static final String SOURCE = "./data/board.json";
 
-
+    private SimulationPanel sp;
+    private UIPanel uip;
     private Board board;
-    private Window window;
-    private ButtonPanel buttonPanel;
-    private Grid grid;
+    private Timer t;
+    private JsonReader reader;
+    private JsonWriter writer;
 
-    // EFFECTS: Instantiates the GameOfLife.
+    // EFFECTS: Instantiates the Game Of Life.
     public GameOfLife() {
-        board =  new Board(1,1);
-        window = new Window(SCREEN_WIDTH, SCREEN_HEIGHT);
-        buttonPanel = new ButtonPanel();
-        grid = new Grid(board);
-        initialize();
-    }
-
-    public void initialize() {
-        //Buttons
-        buttonPanel.add(new AddRowButton(board, grid));
-        buttonPanel.add(new AddColumnButton(board, grid));
-        buttonPanel.add(new RunSimulationButton(board, grid));
-        window.add(buttonPanel, BorderLayout.SOUTH);
-        //Grid
-        grid.addComponentListener(new ComponentAdapter() {
+        board = new Board(10,10);
+        sp = new SimulationPanel(board);
+        uip = new UIPanel(board, sp);
+        t = new Timer(75, new ActionListener() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                if (e.getComponent() == grid) {
-                    grid.setUnitWidth(grid.getWidth() / board.getWidth());
-                    grid.setUnitHeight(grid.getHeight() / board.getHeight());
-                    board.randomize();
-                }
+            public void actionPerformed(ActionEvent e) {
+                board.update();
+                sp.repaint();
             }
         });
-        window.add(grid);
+        reader = new JsonReader(SOURCE);
+        writer = new JsonWriter(SOURCE);
+        initializeUIPanel();
+        initializeFrame();
+    }
+
+    private void initializeUIPanel() {
+        JButton randomize = new JButton("Randomize");
+        randomize.setActionCommand("randomize");
+        randomize.addActionListener(this);
+        JButton run = new JButton("Run");
+        run.setActionCommand("run");
+        run.addActionListener(this);
+        JButton pause = new JButton(("Pause"));
+        pause.setActionCommand("pause");
+        pause.addActionListener(this);
+        JSlider slider = new JSlider(0,200,10);
+        slider.setMajorTickSpacing(50);
+        slider.setSnapToTicks(true);
+        slider.setPaintLabels(true);
+        slider.setPaintTicks(true);
+        slider.addChangeListener(this);
+        JButton save = new JButton("Save");
+        save.setActionCommand("Save");
+        save.addActionListener(this);
+        JButton load = new JButton("Load");
+        load.setActionCommand("Load");
+        load.addActionListener(this);
+        uip.add(save);
+        uip.add(load);
+        uip.add(randomize);
+        uip.add(run);
+        uip.add(pause);
+        uip.add(slider);
+    }
+
+    // EFFECTS: Sets up JFrame parameters.
+    private void initializeFrame() {
+        setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        pack();
+        setVisible(true);
+        setLayout(new BorderLayout());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addComponents();
+    }
+
+    private void addComponents() {
+        add(sp, BorderLayout.PAGE_START);
+        add(uip, BorderLayout.PAGE_END);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("run")) {
+            t.start();
+        } else if (e.getActionCommand().equals("pause")) {
+            t.stop();
+        } else if (e.getActionCommand().equals("randomize")) {
+            board.randomize();
+            sp.repaint();
+        } else if (e.getActionCommand().equals("Save")) {
+            try {
+                writer.open();
+                writer.write(board);
+            } catch (IOException exception) {
+                System.out.println("Could not save file.");
+            }
+            writer.close();
+        } else if (e.getActionCommand().equals("Load")) {
+            System.out.println("Here");
+            try {
+                board = reader.read();
+                sp.setBoard(board);
+                sp.repaint();
+            } catch (IOException exception) {
+                System.out.println("Could not load file");
+            }
+        }
+        if (e.getSource() == t) {
+            t.start();
+        }
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JSlider js = (JSlider) e.getSource();
+        board.setSize(js.getValue());
+        sp.calculateAndSetUnitSize();
+        sp.repaint();
     }
 }
