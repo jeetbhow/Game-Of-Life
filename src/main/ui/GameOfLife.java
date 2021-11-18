@@ -20,23 +20,23 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     public static final int WINDOW_HEIGHT = 1000;
     public static final String SOURCE = "./data/board.json";
 
-    private SimulationPanel sp;
-    private UIPanel uip;
+    private SimulationPanel simulationPanel;
+    private UIPanel uiPanel;
     private Board board;
-    private Timer t;
+    private Timer timer;
     private JsonReader reader;
     private JsonWriter writer;
 
     // EFFECTS: Instantiates the Game Of Life.
     public GameOfLife() {
         board = new Board(10,10);
-        sp = new SimulationPanel(board);
-        uip = new UIPanel(board, sp);
-        t = new Timer(75, new ActionListener() {
+        simulationPanel = new SimulationPanel(board);
+        uiPanel = new UIPanel(board, simulationPanel);
+        timer = new Timer(75, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board.update();
-                sp.repaint();
+                simulationPanel.repaint();
             }
         });
         reader = new JsonReader(SOURCE);
@@ -67,12 +67,12 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
         JButton load = new JButton("Load");
         load.setActionCommand("Load");
         load.addActionListener(this);
-        uip.add(save);
-        uip.add(load);
-        uip.add(randomize);
-        uip.add(run);
-        uip.add(pause);
-        uip.add(slider);
+        uiPanel.add(save);
+        uiPanel.add(load);
+        uiPanel.add(randomize);
+        uiPanel.add(run);
+        uiPanel.add(pause);
+        uiPanel.add(slider);
     }
 
     // EFFECTS: Sets up JFrame parameters.
@@ -87,19 +87,19 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     }
 
     private void addComponents() {
-        add(sp, BorderLayout.PAGE_START);
-        add(uip, BorderLayout.PAGE_END);
+        add(simulationPanel, BorderLayout.PAGE_START);
+        add(uiPanel, BorderLayout.PAGE_END);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("run")) {
-            t.start();
+            timer.start();
         } else if (e.getActionCommand().equals("pause")) {
-            t.stop();
+            timer.stop();
         } else if (e.getActionCommand().equals("randomize")) {
             board.randomize();
-            sp.repaint();
+            simulationPanel.repaint();
         } else if (e.getActionCommand().equals("Save")) {
             try {
                 writer.open();
@@ -112,14 +112,14 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
             System.out.println("Here");
             try {
                 board = reader.read();
-                sp.setBoard(board);
-                sp.repaint();
+                simulationPanel.setBoard(board);
+                simulationPanel.repaint();
             } catch (IOException exception) {
                 System.out.println("Could not load file");
             }
         }
-        if (e.getSource() == t) {
-            t.start();
+        if (e.getSource() == timer) {
+            timer.start();
         }
     }
 
@@ -127,7 +127,7 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     public void stateChanged(ChangeEvent e) {
         JSlider js = (JSlider) e.getSource();
         board.setSize(js.getValue());
-        sp.calculateAndSetUnitSize();
-        sp.repaint();
+        simulationPanel.calculateAndSetUnitSize();
+        simulationPanel.repaint();
     }
 }
