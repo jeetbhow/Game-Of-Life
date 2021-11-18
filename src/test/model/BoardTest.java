@@ -130,4 +130,14 @@ public class BoardTest {
         assertEquals(testBoardOneLessColumn, testBoard);
     }
 
+    @Test
+    void setSize() {
+        testBoard.setSize(4);
+        assertEquals(new Board(4,4), testBoard);
+        testBoard.setSize(3);
+        assertEquals(new Board(3,3), testBoard);
+        testBoard.setSize(3);
+        assertEquals(new Board(3,3), testBoard);
+    }
+
 }

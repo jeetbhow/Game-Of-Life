@@ -262,18 +262,26 @@ public class Board {
     }
 
     /*
-     * REQUIRES: board is a square board with height = width.
      * MODIFIES: this
+     * EFFECTS: Sets the board to a square board of the given size.
      */
-    public void setSize(int value) {
-        if (height < value) {
-            for (int i = 0; i < value - height; i++) {
+    public void setSize(int size) {
+        if (height < size) {
+            for (int i = 0; i < size - height; i++) {
                 addRow();
+            }
+        } else {
+            for (int i = 0; i < height - size; i++) {
+                removeRow();
+            }
+        }
+        if (width < size) {
+            for (int i = 0; i < size - width; i++) {
                 addColumn();
             }
         } else {
-            for (int i = 0; i < height - value; i++) {
-
+            for (int i = 0; i < width - size; i++) {
+                removeColumn();
             }
         }
     }
