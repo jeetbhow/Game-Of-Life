@@ -3,8 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -58,7 +56,6 @@ public class BoardTest {
 
     @Test
     void addRowsAndAddColumns() {
-        // Expecting a board with 4 rows and columns.
         testBoard.addColumn();
         testBoard.addRow();
         assertEquals(FOUR_SQUARE, testBoard.toString());
@@ -66,17 +63,13 @@ public class BoardTest {
 
     @Test
     void flipCell() {
-        // Expecting the center cell to flip to ALIVE.
         testBoard.flipCell(1,1);
         assertEquals(CENTER_ALIVE, testBoard.toString());
 
-        // Expecting the center cell to flip back to DEAD.
         testBoard.flipCell(1,1);
         assertNotEquals(CENTER_ALIVE, testBoard.toString());
         assertEquals(ALL_DEAD, testBoard.toString());
 
-        // Expecting the new row and column to work with flipCell().
-        // The cell on (3,3) should go from DEAD to ALIVE.
         testBoard.addColumn();
         testBoard.addRow();
         testBoard.flipCell(3,3);
@@ -120,4 +113,21 @@ public class BoardTest {
         testBoard.randomize();
         assertNotEquals(prev, testBoard);
     }
+
+    @Test
+    void removeColumn() {
+        testBoard.removeColumn();
+        Board testBoardOneLessColumn = new Board(2,3);
+        assertEquals(testBoard, testBoardOneLessColumn);
+    }
+
+    @Test
+    void removeRow() {
+        // Remove a row from the testBoard.
+        testBoard.removeRow();
+        // Make a new board of dead cells with one less row.
+        Board testBoardOneLessColumn = new Board(3, 2);
+        assertEquals(testBoardOneLessColumn, testBoard);
+    }
+
 }

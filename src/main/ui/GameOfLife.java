@@ -1,7 +1,5 @@
 package ui;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
 import model.Board;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -12,9 +10,11 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/*
+    Represents the window in which the simulation is displayed.
+ */
 public class GameOfLife extends JFrame implements ActionListener, ChangeListener {
     public static final int WINDOW_WIDTH = 1000;
     public static final int WINDOW_HEIGHT = 1000;
@@ -55,7 +55,7 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
         JButton pause = new JButton(("Pause"));
         pause.setActionCommand("pause");
         pause.addActionListener(this);
-        JSlider slider = new JSlider(0,200,10);
+        JSlider slider = new JSlider(10,200,10);
         slider.setMajorTickSpacing(50);
         slider.setSnapToTicks(true);
         slider.setPaintLabels(true);

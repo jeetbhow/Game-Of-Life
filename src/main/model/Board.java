@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import org.json.JSONObject;
 
@@ -79,23 +80,46 @@ public class Board {
     }
 
     /* MODIFIES: this
-     * EFFECTS: Adds a new column of dead cells to the board. */
+     * EFFECTS: Adds a column of dead cells to the end of board. */
     public void addColumn() {
-        width++;
-        for (ArrayList<Cell> index : cells) {
-            index.add(new Cell());
+        for (ArrayList<Cell> list : cells) {
+            list.add(new Cell());
         }
+        width++;
     }
 
     /* MODIFIES: this
-     * EFFECTS: Adds a new row of dead cells to the Board. */
+     * EFFECTS: Adds a row of dead cells to the end of the Board. */
     public void addRow() {
-        height++;
         ArrayList<Cell> listToAdd = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             listToAdd.add(new Cell());
         }
         cells.add(listToAdd);
+        height++;
+    }
+
+    /*
+     * REQUIRES: width > 0
+     * MODIFIES: this
+     * EFFECTS: Removes a column of cells from the end of the board.
+     */
+    public void removeColumn() {
+        for (ArrayList<Cell> list : cells) {
+            Cell cellToRemove = list.get(width - 1);
+            list.remove(cellToRemove);
+        }
+        width--;
+    }
+
+    /*
+     * REQUIRES: height > 0
+     * MODIFIES: this
+     * EFFECTS: Removes a row of cells from the end of the board.
+     */
+    public void removeRow() {
+        cells.remove(cells.get(height - 1));
+        height--;
     }
 
     /*
@@ -237,12 +261,37 @@ public class Board {
         return json;
     }
 
+    /*
+     * REQUIRES: board is a square board with height = width.
+     * MODIFIES: this
+     */
     public void setSize(int value) {
-        this.height = value;
-        this.width = value;
-        for (int i = 0; i < value; i++) {
-            addRow();
-            addColumn();
+        if (height < value) {
+            for (int i = 0; i < value - height; i++) {
+                addRow();
+                addColumn();
+            }
+        } else {
+            for (int i = 0; i < height - value; i++) {
+
+            }
         }
+    }
+
+    /*
+     * EFFECTS: Returns true if the object being compared to is of the same
+     * type and returns the same string when toString is called. Returns
+     * false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Board board = (Board) o;
+        return this.toString().equals(board.toString());
     }
 }
