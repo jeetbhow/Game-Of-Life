@@ -31,7 +31,6 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     private Timer timer;
     private JsonReader reader;
     private JsonWriter writer;
-    private JButton buttons;
 
     /*
      * EFFECTS: Instantiates the Game Of Life.
@@ -56,12 +55,9 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
      * EFFECTS: Initializes the simulation timer.
      */
     private void initializeTimer() {
-        timer = new Timer(75, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                board.update();
-                simulationPanel.repaint();
-            }
+        timer = new Timer(75, e -> {
+            board.update();
+            simulationPanel.repaint();
         });
     }
 
