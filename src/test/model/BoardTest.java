@@ -144,6 +144,7 @@ public class BoardTest {
 
     @Test
     void equals() {
+        assertNotEquals(null, testBoard);
         assertEquals(testBoard, testBoard);
         assertNotEquals(testBoard, new LinkedList<>());
     }

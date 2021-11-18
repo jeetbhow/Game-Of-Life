@@ -11,7 +11,7 @@ public class UIPanel extends JPanel {
     public static final int HEIGHT = 100;
 
     // EFFECTS: Instantiates a UIPanel.
-    public UIPanel(Board board, SimulationPanel sp) {
+    public UIPanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 }

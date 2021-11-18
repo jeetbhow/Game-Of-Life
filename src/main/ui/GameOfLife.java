@@ -68,7 +68,7 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     private void initializeSwingComponents() {
         board = new Board(10,10);
         simulationPanel = new SimulationPanel(board);
-        uiPanel = new UIPanel(board, simulationPanel);
+        uiPanel = new UIPanel();
         initializeUIPanel();
         initializeFrame();
     }
