@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -140,4 +142,9 @@ public class BoardTest {
         assertEquals(new Board(3,3), testBoard);
     }
 
+    @Test
+    void equals() {
+        assertEquals(testBoard, testBoard);
+        assertNotEquals(testBoard, new LinkedList<>());
+    }
 }

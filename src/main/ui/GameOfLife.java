@@ -74,6 +74,10 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
     }
 
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Initializes the components that are to be added to the UIPanel.
+     */
     private void initializeUIPanel() {
         addButtons();
         setUpSizeSlider();

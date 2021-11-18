@@ -1,0 +1,21 @@
+{
+  "width": 3,
+  "height": 3,
+  "states": [
+    [
+      {"state": "ALIVE"},
+      {"state": "ALIVE"},
+      {"state": "ALIVE"}
+    ],
+    [
+      {"state": "ALIVE"},
+      {"state": "ALIVE"},
+      {"state": "ALIVE"}
+    ],
+    [
+      {"state": "ALIVE"},
+      {"state": "ALIVE"},
+      {"state": "ALIVE"}
+    ]
+  ]
+}

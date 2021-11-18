@@ -16,9 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonReaderTest {
     private JsonReader jsonReader;
     private final String SOURCE = "./data/test.json";
+    private final String SOURCE2 = "./data/test2.json";
     private final String ALL_DEAD = "| . | . | . |\n" +
                                     "| . | . | . |\n" +
                                     "| . | . | . |";
+    private final String ALL_ALIVE = "| O | O | O |\n" +
+                                     "| O | O | O |\n" +
+                                     "| O | O | O |";
 
     @BeforeEach
     void init() {
@@ -56,6 +60,20 @@ public class JsonReaderTest {
         Board jsonBoard = null;
         try {
             jsonBoard = jsonReader.read();
+        } catch (IOException e) {
+            fail("couldn't read file");
+        }
+        assertEquals(testBoard.toString(), jsonBoard.toString());
+    }
+
+    @Test
+    void testReadWithAllAlive() {
+        JsonReader reader2 = new JsonReader(SOURCE2);
+        Board testBoard = new Board(3,3);
+        testBoard.stringToBoard(ALL_ALIVE, 3,3);
+        Board jsonBoard = null;
+        try {
+            jsonBoard = reader2.read();
         } catch (IOException e) {
             fail("couldn't read file");
         }
