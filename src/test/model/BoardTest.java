@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
 
 import java.util.LinkedList;
 
@@ -144,6 +145,8 @@ public class BoardTest {
 
     @Test
     void equals() {
+        JsonReader json = null;
+        assertNotEquals(json, testBoard);
         assertNotEquals(null, testBoard);
         assertEquals(testBoard, testBoard);
         assertNotEquals(testBoard, new LinkedList<>());

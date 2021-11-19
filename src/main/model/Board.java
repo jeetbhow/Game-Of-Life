@@ -295,11 +295,11 @@ public class Board {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+        } else if (o == null || getClass() != o.getClass()) {
             return false;
+        } else {
+            Board board = (Board) o;
+            return this.toString().equals(board.toString());
         }
-        Board board = (Board) o;
-        return this.toString().equals(board.toString());
     }
 }
