@@ -44,9 +44,9 @@ can be found in the user stories which I'll update
 throughout the project.
 
 ## Phase 4: Task 2
-A sample of events that were logged in the Event Log. 
+A sample of events that were logged in the Event Log
 
-![img.png](img.png)
+
 
 ## User Stories
 
