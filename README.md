@@ -10,21 +10,20 @@ Every iteration of the game, cells exchange information
 with their neighbors and update their own state according
 to the state of their neighbors. This can lead to the 
 spontaneous emergence of some interesting patterns and 
-structures. For more information, please visit 
-https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+structures. 
 
 The inspiration for this project came 
-after watching a talk called *The Art of Code* 
-by Dylan Beattie. It's about how code
-can be art. This is where I saw a demonstration of
+after watching *The Art of Code* 
+by Dylan Beattie. This is where I saw a demonstration of
 The Game of Life, and I've been itching to write 
 my own implementation ever since. In case you're interested, 
-The Art of Code can be seen here:
+the talk can be seen here:
+
 https://www.youtube.com/watch?v=6avJHaC3C2U&t=79s
 
 ## The Rules
 
-The rules are really simple. We just answer two questions: 
+The rules are simple. We answer two questions: 
 what keeps a cell alive, and what keeps it dead?
 
 - Live cells require exactly 2 or 3 live neighbors in order
@@ -33,20 +32,14 @@ to survive. Anything else will cause it to die by either
   
 - Dead cells can be revived if surrounded by three live 
 neighbors through *reproduction*. Otherwise, it stays dead. 
-
-That's it. It's pretty simple. 
+  
 
 ## So what does *this* program do specifically?
 
-This program is a graphical simulation
-of the Game of Life. The list of features
+This program is a simulation
+of the Game of Life made in Java. The list of features
 can be found in the user stories which I'll update 
 throughout the project.
-
-## Phase 4: Task 2
-A sample of events that were logged in the Event Log
-
-![img.png](img.png)
 
 ## User Stories
 
@@ -63,6 +56,15 @@ on the board.
 
 - As a user, I want to be able to load the state of the board from a file and
 resume the simulation. 
+
+## Phase 4: Task 2
+A sample of events that were logged in the Event Log
+
+![img.png](img.png)
+
+## Phase 4: Task 3
+
+
 
 ## Updates
 - Nov 25, 2021: Finished GUI. 
