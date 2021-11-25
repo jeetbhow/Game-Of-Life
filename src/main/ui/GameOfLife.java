@@ -1,16 +1,19 @@
 package ui;
 
 import model.Board;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import sun.awt.WindowClosingListener;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
+import java.util.Iterator;
 
 /*
     Represents the window in which the simulation is displayed.
@@ -39,6 +42,20 @@ public class GameOfLife extends JFrame implements ActionListener, ChangeListener
         initializeSwingComponents();
         initializeTimer();
         initializePersistence();
+        initializeLog();
+    }
+
+    private void initializeLog() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosed(e);
+                Iterator<Event> iterator = EventLog.getInstance().iterator();
+                while (iterator.hasNext()) {
+                    System.out.println(iterator.next());
+                }
+            }
+        });
     }
 
     /*

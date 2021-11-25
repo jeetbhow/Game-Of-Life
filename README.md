@@ -38,12 +38,15 @@ That's it. It's pretty simple.
 
 ## So what does *this* program do specifically?
 
-I'm glad you asked! This program is a graphical simulation
-of the Game of Life. You can set the size of the grid, the
-amount of time passed per iteration, the initial state of
-the system, colors, and other things. The list of features
+This program is a graphical simulation
+of the Game of Life. The list of features
 can be found in the user stories which I'll update 
 throughout the project.
+
+## Phase 4: Task 2
+A sample of events that were logged in the Event Log. 
+
+![img.png](img.png)
 
 ## User Stories
 
@@ -62,6 +65,8 @@ on the board.
 resume the simulation. 
 
 ## Updates
+- Nov 25, 2021: Finished GUI. 
 - Oct 12, 2021: Finished a console based implementation.
 - Nov 7, 2021: Added the ability to save and pick off from
 where you left off. 
+  

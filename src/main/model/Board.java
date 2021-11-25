@@ -86,6 +86,7 @@ public class Board {
             list.add(new Cell());
         }
         width++;
+        EventLog.getInstance().logEvent(new Event("Cells added to Board."));
     }
 
     /* MODIFIES: this
@@ -97,6 +98,7 @@ public class Board {
         }
         cells.add(listToAdd);
         height++;
+        EventLog.getInstance().logEvent(new Event("Cells added to Board."));
     }
 
     /*
@@ -110,6 +112,7 @@ public class Board {
             list.remove(cellToRemove);
         }
         width--;
+        EventLog.getInstance().logEvent(new Event("Cells removed from Board."));
     }
 
     /*
@@ -120,6 +123,7 @@ public class Board {
     public void removeRow() {
         cells.remove(cells.get(height - 1));
         height--;
+        EventLog.getInstance().logEvent(new Event("Cells removed from Board."));
     }
 
     /*
@@ -188,6 +192,7 @@ public class Board {
             }
         }
         this.cells = nextGeneration.getCells();
+        EventLog.getInstance().logEvent(new Event("Board updated."));
         return nextGeneration;
     }
 
@@ -200,6 +205,7 @@ public class Board {
                 cell.randomize();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Board randomized."));
     }
 
     /* EFFECTS: Returns a string representation of the board. */
@@ -258,6 +264,7 @@ public class Board {
         json.put("height", this.height);
         json.put("width", this.width);
         json.put("states", this.cells);
+        EventLog.getInstance().logEvent(new Event("Board saved."));
         return json;
     }
 
@@ -284,6 +291,7 @@ public class Board {
                 removeColumn();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Board size changed."));
     }
 
     /*

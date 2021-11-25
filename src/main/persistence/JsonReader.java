@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 
 public class JsonReader {
-    private String source;
+    private final String source;
 
     /* EFFECTS: Initializes a JsonReader. */
     public JsonReader(String source) {
