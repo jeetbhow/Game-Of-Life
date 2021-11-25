@@ -46,7 +46,7 @@ throughout the project.
 ## Phase 4: Task 2
 A sample of events that were logged in the Event Log
 
-
+![img.png](img.png)
 
 ## User Stories
 
