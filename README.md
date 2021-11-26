@@ -64,6 +64,47 @@ A sample of events that were logged in the Event Log
 
 ## Phase 4: Task 3
 
+### Design
+
+![img_1.png](UML_Design_Diagram.png)
+
+### Comments
+
+Let's talk about the main model first. The main model consists of
+Board, Cell, and State. This collection of classes was probably 
+the most well-designed part of the whole project. There's really
+strong cohesion and low coupling here. The Board is responsible 
+for finding all the surrounding cells at each index and sending 
+that information to an individual cell. Each Cell uses that 
+information to update their own state. There's a singular flow of
+information from Board to Cell to State and each one acts as a 
+container for the other. There's nothing in this sequence that I
+would change. 
+
+It started to get messy when I was making the GUI. One thing 
+you probably noticed is the transitive relationship between the 
+GameOfLife, SimulationPanel, and Board classes. I'm not really
+sure what I was thinking, but it looks really silly when I draw
+the diagram. I should have given the Board reference to the 
+SimulationPanel and had the GameOfLife interact with the
+Board through it. 
+
+The GameOfLife class is a mess. It ended up being
+this god class that does everything. It contains every single button,
+the slider, the timer, the model, and UI components, and the
+event handling. I was originally planning on using the UIPanel as
+a container for the buttons and slider. That didn't work out due to me 
+running out of time. For example, I could have made a separate
+Button abstract class. The buttons themselves should have
+been stored in a collection in the UIPanel (in case I wanted to 
+add more buttons). I ended up just adding all the buttons
+individually into the frame. This makes for lots of repetition
+where I should have been using loops. The UIPanel is basically useless and
+doesn't do anything. 
+
+The Timer functionality could have been separated from the 
+GameOfLife class as well as the EventHandling. 
+
 
 
 ## Updates
