@@ -2,6 +2,8 @@ package persistence;
 
 import model.Board;
 import model.Cell;
+import model.Event;
+import model.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -56,6 +58,7 @@ public class JsonReader {
                     cell.flip();
                 }
                 cells.get(i).add(cell);
+                EventLog.getInstance().logEvent(new Event("Cells added to Board."));
             }
         }
         return new Board(width, height, cells);
