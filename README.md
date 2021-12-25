@@ -30,6 +30,9 @@ to survive. Anything else will cause it to die.
 neighbors. Otherwise, it stays dead. 
   
 
+## How do you run the program? 
+You should see a file named GameOfLife.jar in the root of the folder. Run that file. 
+
 ## Updates
 - Nov 25, 2021: Finished GUI. 
 - Oct 12, 2021: Finished a console based implementation.
