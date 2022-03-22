@@ -11,9 +11,7 @@ on the state of their neighbors. This can lead to
 some pretty interesting patterns. 
 
 This is a project that I worked on for CPSC 210: Software Construction at
-the University of British Columbia. The course included the design of a 
-project which contributes to a quarter of your grade. 
-The inspiration for this project came 
+the University of British Columbia. I learned of the Game of Life 
 after watching a talk called *The Art of Code* which can be seen here. 
 
 https://www.youtube.com/watch?v=6avJHaC3C2U&t=79s
